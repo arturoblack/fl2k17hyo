@@ -38,16 +38,19 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="lug">¿Participa en una comunidad de software libre u OpenSource?</label>
-        <input type="text" name="lug" id="frm-lug" value="" class="form-control">
+        <label for="l">¿Participa en una comunidad de software libre u OpenSource?</label>
+        <input type="text" name="l" id="frm-lug" value="" class="form-control">
       </div>
       <div class="form-group">
-        <label for="waitfor"> ¿Que espera de este evento?</label>
-        <textarea name="waitfor" id="frm-waitfor" value="" class="form-control"></textarea>
+        <label for="names"> ¿Que espera de este evento?</label>
+        <textarea name="names" id="frm-waitfor" value="" class="form-control"></textarea>
       </div>
       <div class="form-group">
-        <label for="comment">Algun comentario para los organizadores:</label>
-        <textarea name="comment" id="frm-comment" value="" class="form-control"></textarea>
+        <label for="names">Algun comentario para los organizadores:</label>
+        <textarea name="names" id="frm-comment" value="" class="form-control"></textarea>
+      </div>
+      <div class="text-danger" id="error">
+
       </div>
       <div class="form-group">
         <button type="submit" name="button" class="btn btn-primary btn-lg">Registrase!</button>
@@ -61,6 +64,7 @@
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/tether/tether.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
   <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
   <script type="text/javascript">
     // Initialize Firebase
@@ -86,9 +90,13 @@
             commet: $('#frm-comment').val()
           };
           console.log(data);
-          app.database().ref("flisol/registration").push(data);
+          app.database().ref("flisol/registration").push(data, function(error) {
+            if (error)
+              $("#error").html('un error a ocurrido.');
+            else
+              parent.jQuery.fancybox.getInstance().close();
+          })
 
-          parent.jQuery.fancybox.getInstance().close();
           event.preventDefault();
         });
       });
