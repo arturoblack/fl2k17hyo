@@ -14,7 +14,7 @@ body {
 hr {
   border-color: #F05F40;
   border-width: 3px;
-  max-width: 50px; }
+  max-width: 200px; }
 
 hr.light {
   border-color: white; }
@@ -148,6 +148,7 @@ header.masthead {
   position: relative;
   width: 100%;
   min-height: auto;
+  padding: 20px 10px;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
