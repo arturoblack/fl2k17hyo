@@ -3,33 +3,96 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="FLISOL HUANCAYO 2017">
-    <meta name="author" content="">
-
-    <title>FLISOL 2017 huancayo </title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="FLISOL HUANCAYO 2017">
+  <meta name="author" content="">
+  <title>FLISOL 2017 huancayo </title>
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 
 <body id="page-top">
 
+  <div class="container">
+    <br>
+    <h3>Formulario de Registro</h3>
+    <hr>
+    <form id="form-registration">
+      <div class="form-group">
+        <label for="names"><span class="text-danger">(*)</span> Nombres y apellidos: </label>
+        <input type="text" name="names" id="frm-names" value="" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="email"><span class="text-danger">(*)</span> Correo electronico:</label>
+        <input type="email" name="email" id="frm-mail" value="" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="how"><span class="text-danger">(*)</span> Asiste como:</label>
+        <select class="form-control" name="how" id="frm-how" required>
+          <option value="asistente">Asistente</option>
+          <option value="apoyo">Apoyo al evento</option>
+          <option value="instalacion">Instalación de Software Libre</option>
+          <option value="taller">Participar a los Talleres</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="lug">¿Participa en una comunidad de software libre u OpenSource?</label>
+        <input type="text" name="lug" id="frm-lug" value="" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="waitfor"> ¿Que espera de este evento?</label>
+        <textarea name="waitfor" id="frm-waitfor" value="" class="form-control"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="comment">Algun comentario para los organizadores:</label>
+        <textarea name="comment" id="frm-comment" value="" class="form-control"></textarea>
+      </div>
+      <div class="form-group">
+        <button type="submit" name="button" class="btn btn-primary btn-lg">Registrase!</button>
+      </div>
+    </form>
+    <br>
+  </div>
+  <hr>
+  <br>
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/tether/tether.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+  <script type="text/javascript">
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDaxThLG2OJe21uv6FCtJ0w0x0f1QlQ0wg",
+      authDomain: "curiosity-web.firebaseapp.com",
+      databaseURL: "https://curiosity-web.firebaseio.com",
+      projectId: "curiosity-web",
+      storageBucket: "curiosity-web.appspot.com",
+      messagingSenderId: "1049723050291"
+    };
+    var app = firebase.initializeApp(config);
 
-    <!-- <form>
-        <label>Nombre</label>
-        <input type="text" name="">
-        <button>Enviar</button>
-    </form> -->
-    <h1 class="text-primary text-center">CUPOS  AGOTADOS</h1>
+    var storage = firebase.storage();
+      $(function() {
+        $("#form-registration").on("submit", function( event ) {
+          var data = {
+            name: $('#frm-names').val(),
+            email: $('#frm-mail').val(),
+            how: $('#frm-how').val(),
+            lug: $('#frm-lug').val(),
+            waitfor: $('#frm-waitfor').val(),
+            commet: $('#frm-comment').val()
+          };
+          console.log(data);
+          app.database().ref("flisol/registration").push(data);
 
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/tether/tether.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+          parent.jQuery.fancybox.getInstance().close();
+          event.preventDefault();
+        });
+      });
+  </script>
 </body>
 
 </html>
